@@ -12,7 +12,7 @@ def hello():
     location = requests.get(f'https://ipapi.co/{ip["ip"]}/json/').json()
     city = location.get("city")
 
-    message = f"Hello, {name}, the temperature is degrees Celcius in {city}"
+    message = f"Hello, {name}, the temperature is 10 degrees Celcius in {city}"
     if name == None:
         return {
             "Name": "Not given"
@@ -23,3 +23,6 @@ def hello():
             "location": location.get("city"),
             "greeting": message 
         }
+
+if __name__ == '__main__':
+    app.run(debug=True)
