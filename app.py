@@ -8,8 +8,9 @@ app = Flask(__name__)
 def hello():
 
     name = str(request.args.get('visitor_name'))
-    ip = requests.get('https://api.ipify.org?format=json').json()
-    location = requests.get(f'https://ipapi.co/{ip["ip"]}/json/').json()
+    # ip = requests.get('https://api.ipify.org?format=json').json()
+    ip = request.remote_addr
+    location = requests.get(f'https://ipapi.co/{ip}/json/').json()
     city = location.get("city")
 
     message = f"Hello, {name}, the temperature is 10 degrees Celcius in {city}"
@@ -19,7 +20,7 @@ def hello():
             }
     else:
         return {
-            "client_ip": ip.get("ip"),
+            "client_ip": ip,
             "location": location.get("city"),
             "greeting": message 
         }
