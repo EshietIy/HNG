@@ -17,8 +17,11 @@ def hello():
         ip = temp_ip
     location = requests.get(f'https://ipapi.co/{ip}/json/').json()
     city = location.get("city")
+    temp = requests.get(f"https://api.weatherapi.com/v1/current.json?q={city}&key=cba651cc08464119894115201240407").json()
+    temperature = temp["current"]["temp_c"]
+    print(city)
 
-    message = f"Hello, {name}, the temperature is 10 degrees Celcius in {city}"
+    message = f"Hello, {name}, the temperature is {temperature} degrees Celcius in {city}"
     if name == None:
         return {
             "Name": "Not given"
