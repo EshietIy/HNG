@@ -8,8 +8,13 @@ app = Flask(__name__)
 def hello():
 
     name = str(request.args.get('visitor_name'))
-    # ip = requests.get('https://api.ipify.org?format=json').json()
-    ip = request.remote_addr
+    test_IP = request.environ.get('HTTP_X_FORWARDED_FOR')
+    print(f"test IP {test_IP}")
+    temp_ip = request.environ.get('HTTP_X_FORWARDED_FOR')
+    if temp_ip is None:
+        ip = request.remote_addr
+    else:
+        ip = temp_ip
     location = requests.get(f'https://ipapi.co/{ip}/json/').json()
     city = location.get("city")
 
